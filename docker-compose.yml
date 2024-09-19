@@ -1,0 +1,36 @@
+services:
+  server:
+    build:
+      context: api/vendor/laravel/sail/runtimes/8.2
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: '${WWWGROUP}'
+    image: sail-8.3/app
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    ports:
+      - '${APP_PORT}:80'
+      - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+    env_file: .env
+    environment:
+      WWWUSER: '${WWWUSER}'
+      LARAVEL_SAIL: 1
+      XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+      XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+      IGNITION_LOCAL_SITES_PATH: '${PWD}'
+    volumes:
+      - './api:/var/www/html'
+
+  client:
+    build: 
+      context: ./web
+      target: dev
+    container_name: client
+    volumes:
+      - ./web:/web/
+    ports:
+      - 3000:3000
+      - 24678:24678
+      - 15555:15555
+    tty: true
+    command: /bin/sh -c "yarn install --frozen-lockfile && yarn dev"
