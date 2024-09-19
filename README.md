@@ -1,5 +1,5 @@
-
 ## Running locally
+
 - api
   - `composer install`
   - `php artisan serve`
@@ -7,12 +7,18 @@
   - `yarn install`
   - `yarn dev`
 
+## Laravel Setup
+
+## Nuxt
+
+- api proxy was easier than dealing with SSR vs client api calls
+  - api/api/v1/people vs localhost:3000/api/v1/people
+- better practice when dealing with tokens
 
 ## Docker Setup
 
-- .env from example.env
-- symlink to the root (find a better way for this)
-- add env for WWWUSER and WWWGROUP (why does Sail not need this?)
+- .env from example.env?
+- generate key
 
 ## Docker
 
@@ -21,5 +27,6 @@
 `docker compose up`
 
 If Nitro socket gets stuck again
-`docker compose exec client ls "/tmp/nitro"`
-`docker compose exec client /bin/rm -rf "/tmp/nitro/worker-*"`
+
+- `docker compose exec client ls "/tmp/nitro"`
+- `docker compose exec client /bin/rm -rf "/tmp/nitro/worker-*"`

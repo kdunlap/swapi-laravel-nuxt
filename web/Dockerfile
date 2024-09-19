@@ -1,4 +1,4 @@
-FROM node:20 as dev
+FROM node:20 AS dev
 
 WORKDIR /web
 ENV PATH ./node_modules/.bin/:$PATH

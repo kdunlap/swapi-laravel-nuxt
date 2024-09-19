@@ -6,5 +6,7 @@
       "strings": true
   },
   "tailwindCSS.experimental.configFile": "./web/tailwind.config.ts",
-  "eslint.useFlatConfig": true
+  "eslint.useFlatConfig": true,
+  "eslint.format.enable": true,
+  "editor.formatOnSave": true
 }
