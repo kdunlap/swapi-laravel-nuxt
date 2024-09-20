@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between items-center py-3">
+  <div class="flex justify-between items-center py-2.5">
     <p class="flex-1 font-bold">{{ name }}</p>
     <UButton
       class="uppercase flex justify-center items-center px-5 py-2 font-bold"
