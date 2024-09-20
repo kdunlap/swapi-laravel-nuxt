@@ -1,24 +1,39 @@
-## Running locally
+## Technologies Used
 
-- api
-  - `composer install`
-  - `php artisan serve`
-- web
-  - `yarn install`
-  - `yarn dev`
+- Backend: Laravel
+  - http://localhost:8000
+- Frontend: Nuxt
+  - NuxtUI
+  - Tailwind
 
-## Laravel Setup
+## Running locally with Docker
 
-## Nuxt
+1. From inside the `/api` folder run
 
-- api proxy was easier than dealing with SSR vs client api calls
-  - api/api/v1/people vs localhost:3000/api/v1/people
-- better practice when dealing with tokens
+- `composer install`
+- `cp .env.example .env`
+- `php artisan key:generate`
+- `php artisan migrate`
+  - select `yes` to create the `.sqlite` file
 
-## Docker Setup
+2. Then from the project root run
 
-- .env from example.env?
-- generate key
+- `docker compose build`
+- `docker compose up`
+
+## Running locally without Docker
+
+1. From inside the `/api` folder run
+
+- `composer install`
+- `cp .env.example .env`
+- `php artisan key:generate`
+- `php artisan serve`
+
+2. From inside the `/web` folder run
+
+- `yarn install`
+- `yarn dev`
 
 ## Docker
 
@@ -28,5 +43,5 @@
 
 If Nitro socket gets stuck again
 
-- `docker compose exec client ls "/tmp/nitro"`
-- `docker compose exec client /bin/rm -rf "/tmp/nitro/worker-*"`
+- `docker compose exec web ls "/tmp/nitro"`
+- `docker compose exec web /bin/rm -rf "/tmp/nitro/worker-85-1.sock"`

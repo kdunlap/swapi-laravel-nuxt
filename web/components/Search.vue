@@ -7,16 +7,13 @@
       v-model="query" 
       :placeholder="placeholder" 
       variant="none"
-      :ui="{
-
-      }"
+      @keyup.enter="performSearch"
     />
     <UButton
       class="uppercase w-full flex justify-center items-center mt-5 disabled:bg-pinkish-grey"
       type="button"
       :disabled="query.length < 1 || searching"
       @click="performSearch"
-      @keydown.enter="performSearch"
       :ui="{ rounded: 'rounded-full' }"
       color="primary"
       variant="solid"

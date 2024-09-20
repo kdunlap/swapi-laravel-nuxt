@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     routeRules:{
-      "/api/**": { proxy: `${ process.env.NUXT_API_PROXY }/api/**` }
+      "/api/**": { proxy: `${ process.env.NUXT_API_PROXY || 'http://localhost:8000' }/api/**` }
     }
   }
 })

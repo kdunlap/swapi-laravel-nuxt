@@ -43,34 +43,42 @@ export const useSearch = () => {
     }
   })
 
-  async function searchPeople(query: string): Promise<SearchResults<Person>> {
-    personResults.value = []
+  async function searchPeople(query: string): Promise<void> {
+    try {
+      personResults.value = []
 
-    const params = new URLSearchParams({ search: query })
-    const searchQuery = query.length > 0 ? `?${ params.toString() }` : ""
+      const params = new URLSearchParams({ search: query })
+      const searchQuery = query.length > 0 ? `?${ params.toString() }` : ""
 
-    searching.value = true
-    const result = await $fetch<SearchResults<Person>>('/api/v1/people' + searchQuery)
-    searching.value = false
+      searching.value = true
+      const result = await $fetch<SearchResults<Person>>('/api/v1/people' + searchQuery)
+      personResults.value = result.results
 
-    personResults.value = result.results
-
-    return result
+    } catch(e) {
+      console.error(e)
+    }
+    finally {
+      searching.value = false
+    }
   }
 
-  async function searchMovies(query: string): Promise<SearchResults<Movie>> {
-    movieResults.value = []
+  async function searchMovies(query: string): Promise<void> {
+    try {
+      movieResults.value = []
 
-    const params = new URLSearchParams({ search: query })
-    const searchQuery = query.length > 0 ? `?${ params.toString() }` : ""
+      const params = new URLSearchParams({ search: query })
+      const searchQuery = query.length > 0 ? `?${ params.toString() }` : ""
 
-    searching.value = true
-    const result = await $fetch<SearchResults<Movie>>('/api/v1/movies' + searchQuery)
-    searching.value = false
+      searching.value = true
+      const result = await $fetch<SearchResults<Movie>>('/api/v1/movies' + searchQuery)
+      movieResults.value = result.results
 
-    movieResults.value = result.results
-
-    return result
+    } catch(e) {
+      console.error(e)
+    }
+    finally {
+      searching.value = false
+    }
   }
 
   return {
