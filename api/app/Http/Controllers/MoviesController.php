@@ -3,22 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Contracts\Services\MoviesServiceInterface;
 use Illuminate\Http\JsonResponse;
 
 class MoviesController extends Controller
 {
-    public function index(): JsonResponse
+    public function __construct(
+        private readonly MoviesServiceInterface $moviesService
+    ) {}
+
+    public function index(Request $request): JsonResponse
     {
-        return response()->json([
-            ['name' => 'Name 1'],
-            ['name' => 'Name 2']
-        ]);
+        $movies = $this->moviesService->search($request->query('search', ''));
+
+        return response()->json($movies);
     }
 
     public function show(string $id): JsonResponse
     {
-        return response()->json([
-            'name' => 'Name 1'
-        ]);
+        $movie = $this->moviesService->findById($id);
+
+        return response()->json($movie);
     }
 }

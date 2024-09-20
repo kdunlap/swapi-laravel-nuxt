@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use App\Contracts\Services\PeopleServiceInterface;
 
 class PeopleController extends Controller
 {
-    public function index(): JsonResponse
+    public function __construct(
+        private readonly PeopleServiceInterface $peopleService
+    ) {}
+
+    public function index(Request $request): JsonResponse
     {
-        return response()->json([
-            ['name' => 'Test 1'],
-            ['name' => 'Test 2']
-        ]);
+        $movies = $this->peopleService->search($request->query('search', ''));
+
+        return response()->json($movies);
     }
 
     public function show(string $id): JsonResponse
     {
-        return response()->json([
-            'name' => 'Test 1'
-        ]);
+        $movie = $this->peopleService->findById($id);
+
+        return response()->json($movie);
     }
 }
